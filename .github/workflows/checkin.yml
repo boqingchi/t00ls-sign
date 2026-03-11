@@ -9,8 +9,6 @@ on:
 jobs:
   checkin:
     runs-on: ubuntu-latest
-    permissions:
-      contents: write # 必须赋予写入权限，用于更新仓库活跃状态
     steps:
       - uses: actions/checkout@v4
 
@@ -28,12 +26,6 @@ jobs:
           T00LS_PASSWORD: ${{ secrets.T00LS_PASSWORD }}
           T00LS_QUESTIONID: ${{ secrets.T00LS_QUESTIONID }}
           T00LS_ANSWER: ${{ secrets.T00LS_ANSWER }}
-          T00LS_ACCESS_TOKEN: ${{ secrets.DD_ACCESS_TOKEN }} # 注意：这里保持你原有的 Secret 名称
-          T00LS_SECRET: ${{ secrets.DD_SECRET }}
+          DD_ACCESS_TOKEN: ${{ secrets.DD_ACCESS_TOKEN }}
+          DD_SECRET: ${{ secrets.DD_SECRET }}
         run: python toolsqiandao.py
-
-      # 新增：自动保活步骤
-      - name: Keepalive Workflow
-        uses: gautamkrishnar/keepalive-workflow@v1
-        with:
-          use_api: true
